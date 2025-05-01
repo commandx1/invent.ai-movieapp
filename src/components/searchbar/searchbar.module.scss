@@ -1,0 +1,25 @@
+.searchbox {
+    border: 1px solid var(--borderGray);
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    width: 100%;
+
+    svg {
+        color: var(--textGray);
+    }
+
+    input {
+        padding: 10px 0;
+        outline: none;
+        border: none;
+        color: var(--gray);
+        width: 100%;
+
+        &::placeholder {
+            color: var(--placeholderGray);
+        }
+    }
+}

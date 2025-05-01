@@ -1,0 +1,27 @@
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+
+    &>div {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        button {
+            &:hover {
+                background-color: #ddd;
+            }
+        }
+
+        .active {
+            background-color: var(--black);
+            color: #ddd;
+
+            &:hover {
+                background-color: var(--black);
+            }
+        }
+    }
+}
