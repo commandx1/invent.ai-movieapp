@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { AppDispatch } from 'store';
+import { AppDispatch, RootState } from 'store';
 import { setSearchTerm } from 'store/filterSlice';
 
 import Search from '@mui/icons-material/Search';
@@ -11,15 +12,24 @@ import { debounce } from '@mui/material';
 import styles from './searchbar.module.scss';
 
 const SearchBar = () => {
-    const [text, setText] = useState('Pokemon');
+    const { searchTerm } = useSelector((state: RootState) => state.filter);
+    const [text, setText] = useState('');
     const dispatch = useDispatch<AppDispatch>();
+
+    const isMounted = useRef(false);
 
     const setGlobalSearchTerm = (text: string) => dispatch(setSearchTerm(text));
 
     const debouncedSearch = useCallback(debounce(setGlobalSearchTerm, 750), []);
 
     useEffect(() => {
-        debouncedSearch(text);
+        if (!isMounted.current) {
+            setText(searchTerm);
+        } else {
+            debouncedSearch(text);
+        }
+
+        isMounted.current = true;
     }, [text]);
 
     return (
